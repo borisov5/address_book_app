@@ -1,14 +1,15 @@
-Get Started Downloads : Requirements
+## Get Started Downloads : Requirements
 
- pip install fastapi
- pip install uvicorn
- pip install sqlalchemy
- pip install haversine
- 
-Must have SQLite3 Install on machine
+1. **pip install fastapi**
+2. **pip install uvicorn**
+3. **pip install sqlalchemy**
+4. **pip install haversine**
 
-To run app
- uvicorn books:app --reload
+**Must have SQLite3 Install on machine**
 
-URL
-127.0.0.1:8000/docs
+## To run app
+
+**uvicorn addresses:app --reload**
+
+## URL
+**127.0.0.1:8000/docs**
