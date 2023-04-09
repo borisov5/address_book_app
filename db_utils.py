@@ -48,7 +48,7 @@ def create_address(address: Address, db: Session = Depends(get_db)):
 
     db.add(address_model)
     db.commit()
-    log_warning('Address created')
+    log_warning(f'Address {address.name} created')
     return address
 
 
@@ -59,7 +59,7 @@ def update_address(address_id: int, address: Address, db: Session = Depends(get_
     """
     address_model = db.query(models.Addresses).filter(Addresses.id == address_id).first()
     if address_model is None:
-        log_error('There is no such id')
+        log_error(f'There is no {address_id} id')
         raise HTTPException(
             status_code=404,
             detail=f"ID {address_id} : Does not exist",
@@ -70,7 +70,7 @@ def update_address(address_id: int, address: Address, db: Session = Depends(get_
     address_model.distance = address.distance
     db.add(address_model)
     db.commit()
-    log_warning('Address updated')
+    log_warning(f'Address {address.name} updated')
     return address
 
 
@@ -81,14 +81,14 @@ def delete_address(address_id: int, db: Session = Depends(get_db)):
     """
     address_model = db.query(models.Addresses).filter(models.Addresses.id == address_id).first()
     if address_model is None:
-        log_error('There is no such id')
+        log_error(f'There is no {address_id} id')
         raise HTTPException(
             status_code=404,
             detail=f"ID {address_id} : Does not exist",
         )
     db.query(models.Addresses).filter(models.Addresses.id == address_id).delete()
     db.commit()
-    log_critical('Address deleted')
+    log_critical(f'Address with id: {address_id} deleted')
     return f"Address with {address_id} successfuly deleted"
 
 
@@ -113,10 +113,10 @@ def read_api_by_id(address_id: int, db: Session = Depends(get_db)):
     """
     address_model = db.query(models.Addresses).filter(models.Addresses.id == address_id).first()
     if address_model is None:
-        log_error('There is no such id')
+        log_error(f'There is no id {address_id}')
         raise HTTPException(
             status_code=404,
             detail=f"ID {address_id} : Does not exist",
         )
-    log_warning('Address is readed')
+    log_warning(f'Address with id {address_id} is readed')
     return address_model
